@@ -1,22 +1,17 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import './home.js';
+
+import React, {useState} from 'react';
 
 function App() {
+  const [hello, setHello] = useState('안녕하세요');
+
+  const onClick = () => {
+    setHello('문자열을 변경해 봤어요');
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <a
-          className=""
-          href="./home.js"
-          target="_blank"
-          rel=""
-        >
-          Click
-        </a>
-      </header>
+      {hello}
+      <button onClick={onClick}>문자열 변경</button>
     </div>
   );
 }
