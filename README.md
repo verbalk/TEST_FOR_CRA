@@ -1,5 +1,5 @@
 Hello world.
 
-## Hello.
+## Company.
 
 world
