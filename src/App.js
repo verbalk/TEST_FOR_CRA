@@ -14,7 +14,7 @@ function App() {
   };
 
   const removeItem = (index) => {
-    const filteredList = list.map((item, idx) => {
+    const filteredList = list.filter((item, idx) => {
       if (index === idx) {
         return false;
       }
@@ -26,8 +26,7 @@ function App() {
 
 const handleKeyPress = (e) => {
   if(e.key ==='Enter') {
-    setList([...list, text]);
-    setText('');
+    submit()
   }
 } 
 
@@ -44,6 +43,7 @@ const handleKeyPress = (e) => {
       <div>
         {list.map((item, idx) => {
           return <div>
+            <input type="checkbox"/>
             {item}
             <button onClick={() => removeItem(idx)}>
               Del
