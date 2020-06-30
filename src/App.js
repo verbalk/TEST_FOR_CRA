@@ -2,6 +2,10 @@
 
 import React, {useState} from 'react';
 import styled from 'styled-components';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons"
+
+
 
 function App() {
   const [list, setList] = useState([]);
@@ -24,6 +28,12 @@ function App() {
 
   };
 
+  const textDeco = (checkbox) => {
+    if(checkbox === 'click') {
+      onchange('text-decoration: line-through;')
+    }
+  };
+
 const handleKeyPress = (e) => {
   if(e.key ==='Enter') {
     submit()
@@ -34,6 +44,7 @@ const handleKeyPress = (e) => {
     <StyledApp className="App">
       <div className="list"></div>
       <ListBox>
+        <ListHeader>TO DO</ListHeader>
       <InlineFlex>
         <TextInput  onKeyPress={handleKeyPress} value={text} onChange={(e) => {
           setText(e.target.value);
@@ -42,13 +53,13 @@ const handleKeyPress = (e) => {
       </InlineFlex>
       <div>
         {list.map((item, idx) => {
-          return <div>
-            <input type="checkbox"/>
-            {item}
-            <button onClick={() => removeItem(idx)}>
-              Del
-            </button>
-          </div>
+          return <ItemList>
+            <input onClick={() => textDeco()} type="checkbox"/>
+            <TextList>{item}</TextList>
+            <TrashBtn onClick={() => removeItem(idx)}>
+                    <FontAwesomeIcon icon={faTrash}/> 
+            </TrashBtn>
+          </ItemList>
         })}
       </div>
       </ListBox>
@@ -57,15 +68,47 @@ const handleKeyPress = (e) => {
   );
 }
 
+const ListHeader = styled.div`
+  width: 100%;
+  background: #454aca;
+  color: #fff;
+  font-size: 10px;
+  padding: 8px 0px;
+`;
+
+const TextList = styled.p`
+  margin: 4px 0px;
+`;
+
+
+const TrashBtn = styled.button`
+  font-size: 8px;
+  background: none;
+  border: none;
+  color: #e0e0e0;
+  margin: 4px;
+  padding: 0px 4px;
+`;
+
+const ItemList = styled.div`
+  border-bottom: 0.5px solid #e4e4e4;
+  margin: 4px 16px;
+  font-size: 8px;
+  text-align: left;
+  display: flex;
+  vertical-align: middle;
+`;
+
 const ListBox = styled.div`
-width: 210px;
-height: 250px;
-background: #ffffff;
-text-align: center;
-margin: auto;
-border-radius: 4px;
-box-shadow: 1 1 1 1px;
-box-shadow: 0px 4px 4px 1px #e7e8e8;
+  width: 210px;
+  height: 250px;
+  background: #ffffff;
+  text-align: center;
+  margin: auto;
+  border-radius: 4px;
+  box-shadow: 1 1 1 1px;
+  box-shadow: 0px 4px 4px 1px #e7e8e8;
+  overflow:scroll;
 `;
 
 const StyledApp = styled.div`
