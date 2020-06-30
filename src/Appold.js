@@ -1,5 +1,4 @@
 
-
 import React, {useState} from 'react';
 import styled from 'styled-components';
 
@@ -14,7 +13,7 @@ function App() {
   };
 
   const removeItem = (index) => {
-    const filteredList = list.map((item, idx) => {
+    const filteredList = list.a((item, idx) => {
       if (index === idx) {
         return false;
       }
@@ -24,49 +23,28 @@ function App() {
 
   };
 
-const handleKeyPress = (e) => {
-  if(e.key ==='Enter') {
-    setList([...list, text]);
-    setText('');
-  }
-} 
-
   return (
     <StyledApp className="App">
       <div className="list"></div>
-      <ListBox>
-      <InlineFlex>
-        <TextInput  onKeyPress={handleKeyPress} value={text} onChange={(e) => {
-          setText(e.target.value);
-        }} />
-        <ButtonAdd onClick={submit}>일정추가</ButtonAdd>
-      </InlineFlex>
       <div>
         {list.map((item, idx) => {
           return <div>
             {item}
             <button onClick={() => removeItem(idx)}>
-              Del
+              삭제
             </button>
           </div>
         })}
       </div>
-      </ListBox>
+      <InlineFlex>
+        <TextInput value={text} onChange={(e) => {
+          setText(e.target.value);
+        }} />
+        <ButtonAdd onClick={submit}>일정추가</ButtonAdd>
+      </InlineFlex>
     </StyledApp>
-    
   );
 }
-
-const ListBox = styled.div`
-width: 210px;
-height: 250px;
-background: #ffffff;
-text-align: center;
-margin: auto;
-border-radius: 4px;
-box-shadow: 1 1 1 1px;
-box-shadow: 0px 4px 4px 1px #e7e8e8;
-`;
 
 const StyledApp = styled.div`
   background-color: #efefef;
@@ -75,12 +53,11 @@ const StyledApp = styled.div`
 
 const InlineFlex = styled.div`
   display:inline-flex;
-  margin-top:16px;
 `;
 
 const TextInput = styled.input`
   font-size: 7px;
-  width: 120px;
+  width: 180px;
   border: 0.5px solid #e4e4e4;
   border-radius: 2px;
 `;
@@ -96,3 +73,13 @@ const ButtonAdd = styled.button`
 `;
 
 export default App;
+
+
+
+
+
+
+
+
+
+
