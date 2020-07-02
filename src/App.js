@@ -12,9 +12,20 @@ function App() {
   const [text, setText] = useState('');
   const submit = () => {
   
-      setList([...list, text]);
+      setList([...list, {checked: false, text}]);
       setText('');
+      console.log(submit);
   
+  };
+
+  const updateItem = (index) => {
+    const updatedList = list.map((item,idx) => {
+      if(index === idx){
+        return { checked: !item.checked, text: item.text };
+      }
+      return item;
+    });
+    setList(updatedList);
   };
 
   const removeItem = (index) => {
@@ -28,11 +39,7 @@ function App() {
 
   };
 
-  const textDeco = (checkbox) => {
-    if(checkbox === 'click') {
-      onchange('text-decoration: line-through;')
-    }
-  };
+
 
 const handleKeyPress = (e) => {
   if(e.key ==='Enter') {
@@ -53,9 +60,9 @@ const handleKeyPress = (e) => {
       </InlineFlex>
       <div>
         {list.map((item, idx) => {
-          return <ItemList>
-            <input onClick={() => textDeco()} type="checkbox"/>
-            <TextList>{item}</TextList>
+          return <ItemList key={idx}>
+            <input onChange={() => updateItem(idx)} checked={item.checked} type="checkbox"/>
+            <TextList isChecked={item.checked}>{item.text}</TextList>
             <TrashBtn onClick={() => removeItem(idx)}>
                     <FontAwesomeIcon icon={faTrash}/> 
             </TrashBtn>
@@ -78,6 +85,7 @@ const ListHeader = styled.div`
 
 const TextList = styled.p`
   margin: 4px 0px;
+  text-decoration: ${(props) => props.isChecked ? 'line-through;' : 'none;'}
 `;
 
 
